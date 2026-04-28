@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winston — The personal voice assistant that actually knows you</title>
+  <meta name="description" content="Winston is a personal voice assistant powered by Claude. One voice replaces all your apps. Hey Winston — and everything is handled.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #8B6914;
+      --dark: #0A0A0F;
+      --dark-2: #111118;
+      --dark-3: #1A1A26;
+      --cream: #F5F0E8;
+      --muted: #8888AA;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--white);
+      max-width: 900px;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero-title span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--cream);
+      opacity: 0.8;
+      max-width: 560px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 16px 40px;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* WAKE WORD DEMO */
+    .demo-bar {
+      background: var(--dark-3);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 12px;
+      padding: 20px 32px;
+      max-width: 680px;
+      width: 100%;
+      margin: 48px auto 0;
+      text-align: left;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1s forwards;
+    }
+
+    .demo-line {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .demo-line .user {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    .demo-line .winston {
+      color: var(--gold);
+    }
+
+    .demo-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+      opacity: 0.4;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-title span { color: var(--gold); font-style: italic; }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--cream);
+      opacity: 0.8;
+      max-width: 600px;
+      line-height: 1.75;
+    }
+
+    /* TWO COL */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 60px;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--dark-2);
+      padding: 36px 32px;
+      transition: background 0.3s ease;
+    }
+
+    .feature-card:hover { background: var(--dark-3); }
+
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* QUOTE */
+    .quote-section {
+      text-align: center;
+      padding: 80px 40px;
+      background: var(--dark-2);
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream);
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.5;
+    }
+
+    .quote-text span { color: var(--gold); }
+
+    .quote-attr {
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center;
+      padding: 100px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .cta-title span { color: var(--gold); font-style: italic; }
+
+    .cta-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-email {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 18px 48px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+
+    .cta-email:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
+    }
+
+    .cta-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.5;
+      width: 100%;
+    }
+
+    /* PLATFORM BADGE */
+    .platform-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark-3);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      color: var(--cream);
+    }
+
+    .badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .badge.coming {
+      opacity: 0.5;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 24px 60px; }
+      section { padding: 60px 24px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .two-col.reverse { direction: ltr; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .demo-bar { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">WINSTON</a>
+    <a href="mailto:david@getwinstonai.com" class="nav-cta">Request Beta Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">Powered by Claude &mdash; Now in Beta</p>
+    <h1 class="hero-title">The voice assistant that <span>actually knows you</span></h1>
+    <p class="hero-subtitle">One voice. Everything handled. No buttons.</p>
+    <p class="hero-desc">
+      Say &ldquo;Hey Winston&rdquo; and your day begins. Weather, calendar, email, calls, texts, reminders, directions &mdash; all through a single natural conversation.
+    </p>
+    <div class="hero-cta-group">
+      <a href="mailto:david@getwinstonai.com" class="btn-primary">Request Beta Access</a>
+      <p class="hero-note">Android now &nbsp;&bull;&nbsp; iOS coming soon &nbsp;&bull;&nbsp; First month free</p>
+    </div>
+
+    <div class="demo-bar">
+      <p class="demo-label">A typical morning with Winston</p>
+      <p class="demo-line"><span class="user">You:</span> &ldquo;Hey Winston, good morning.&rdquo;</p>
+      <p class="demo-line"><span class="winston">Winston:</span> &ldquo;Good morning. 62&deg; and sunny. You&rsquo;ve got a dentist appointment at 10 &mdash; leave by 9:15, there&rsquo;s construction on the way. Your team won last night. Here are this morning&rsquo;s top stories &mdash; and there&rsquo;s a concert downtown this weekend you might enjoy. How are you feeling about the day ahead?&rdquo;</p>
+    </div>
+  </div>
+
+  <!-- WHAT IS WINSTON -->
+  <section>
+    <div class="two-col fade-in">
+      <div>
+        <p class="section-eyebrow">What is Winston</p>
+        <h2 class="section-title">One voice replaces <span>twelve apps</span></h2>
+        <p class="section-body">
+          Winston brings your most-used apps into a single conversation. Weather, calendar, email, news, maps, reminders, lists, calls, and texts &mdash; all handled by one voice, without switching between apps.
+        </p>
+        <p class="section-body" style="margin-top: 16px;">
+          After a 3-minute setup to tell Winston who matters to you and what you care about, it stops feeling like an app and starts feeling like someone who&rsquo;s paying attention.
+        </p>
+      </div>
+      <div style="background: var(--dark-3); border-radius: 12px; padding: 40px; border: 1px solid rgba(201,168,76,0.15);">
+        <p style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">Just say it</p>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <span style="color: var(--gold); font-size: 1.1rem; margin-top: 2px;">→</span>
+            <div>
+              <p style="color: var(--cream); font-size: 0.95rem; font-weight: 500;">&ldquo;Hey Winston, add milk to my list&rdquo;</p>
+              <p style="color: var(--muted); font-size: 0.82rem;">Added. Your list updates automatically at the store.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <span style="color: var(--gold); font-size: 1.1rem; margin-top: 2px;">→</span>
+            <div>
+              <p style="color: var(--cream); font-size: 0.95rem; font-weight: 500;">&ldquo;Write a funny text to my daughter&rdquo;</p>
+              <p style="color: var(--muted); font-size: 0.82rem;">Claude composes it in her tone. You approve, she smiles.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <span style="color: var(--gold); font-size: 1.1rem; margin-top: 2px;">→</span>
+            <div>
+              <p style="color: var(--cream); font-size: 0.95rem; font-weight: 500;">&ldquo;Directions to my dentist&rdquo;</p>
+              <p style="color: var(--muted); font-size: 0.82rem;">Opens Maps with your dentist&rsquo;s address. No lookup needed.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <span style="color: var(--gold); font-size: 1.1rem; margin-top: 2px;">→</span>
+            <div>
+              <p style="color: var(--cream); font-size: 0.95rem; font-weight: 500;">&ldquo;Remind my wife to call the doctor tomorrow&rdquo;</p>
+              <p style="color: var(--muted); font-size: 0.82rem;">Her Winston delivers it. Hands free. Both ways.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="quote-section">
+    <p class="quote-text">&ldquo;It&rsquo;s not a feature list that makes Winston different. It&rsquo;s one thing: <span>Claude</span>. The most capable AI available &mdash; applied to your personal life.&rdquo;</p>
+  </div>
+
+  <!-- FEATURES -->
+  <section style="padding-top: 80px; padding-bottom: 40px;">
+    <div class="fade-in" style="text-align: center; margin-bottom: 0;">
+      <p class="section-eyebrow" style="text-align: center;">What Winston does</p>
+      <h2 class="section-title" style="text-align: center; margin: 0 auto 8px;">Everything you need. <span>Nothing you don&rsquo;t.</span></h2>
+    </div>
+    <div class="features-grid fade-in">
+      <div class="feature-card">
+        <span class="feature-icon">☀️</span>
+        <p class="feature-title">Morning Briefing</p>
+        <p class="feature-desc">Weather, calendar with departure times, filtered email, sports scores, local events, and top news &mdash; delivered before you ask.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✉️</span>
+        <p class="feature-title">Claude-Powered Texts</p>
+        <p class="feature-desc">Tell Winston what to say and who to say it to. Claude composes the message &mdash; funny, warm, formal, or apologetic &mdash; in your voice.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🛒</span>
+        <p class="feature-title">Smart Shopping</p>
+        <p class="feature-desc">Walk into a grocery store and your list appears automatically, sorted by section. No more backtracking. No more forgotten items.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📍</span>
+        <p class="feature-title">Departure Alerts</p>
+        <p class="feature-desc">Winston monitors your calendar and tells you when to leave based on live traffic. No opening Maps. Just go.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔗</span>
+        <p class="feature-title">Winston Connect</p>
+        <p class="feature-desc">When someone you love also has Winston, you can send reminders, share lists, and leave voice messages &mdash; hands free, both ways.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌙</span>
+        <p class="feature-title">Evening Check-In</p>
+        <p class="feature-desc">Winston asks how the day went. Notices patterns. Holds you gently accountable. Not a survey &mdash; a real conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NO ADS -->
+  <section class="fade-in">
+    <div class="two-col reverse">
+      <div>
+        <p class="section-eyebrow">A different relationship</p>
+        <h2 class="section-title">No ads. No data selling. <span>Ever.</span></h2>
+        <p class="section-body">
+          The major voice assistant platforms are free because your data funds them. Winston works differently &mdash; $10/month, no advertising, no data selling. The only thing Winston optimizes for is being genuinely useful to you.
+        </p>
+        <p class="section-body" style="margin-top: 16px;">
+          That&rsquo;s not a feature. That&rsquo;s a fundamentally different relationship.
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: var(--dark-3); border-radius: 10px; padding: 24px; border-left: 3px solid var(--gold);">
+          <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 4px;">Monthly cost</p>
+          <p style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); font-weight: 700;">$10 <span style="font-size: 1rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 300;">/ month</span></p>
+        </div>
+        <div style="background: var(--dark-3); border-radius: 10px; padding: 24px; border-left: 3px solid var(--gold);">
+          <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 4px;">Ads served</p>
+          <p style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); font-weight: 700;">Zero</p>
+        </div>
+        <div style="background: var(--dark-3); border-radius: 10px; padding: 24px; border-left: 3px solid var(--gold);">
+          <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 4px;">Data sold</p>
+          <p style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); font-weight: 700;">None</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section fade-in">
+    <p class="section-eyebrow" style="text-align: center;">Limited beta &mdash; Android</p>
+    <h2 class="cta-title">Ready to try <span>Winston?</span></h2>
+    <p class="cta-desc">We&rsquo;re looking for a small group of people willing to use Winston every day and tell us honestly what works and what doesn&rsquo;t. Your first month is completely free.</p>
+    <div>
+      <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="cta-email">Request Beta Access</a>
+    </div>
+    <p class="cta-sub">Email david@getwinstonai.com &nbsp;&bull;&nbsp; Android required &nbsp;&bull;&nbsp; iOS coming soon</p>
+    <div class="platform-badges">
+      <div class="badge"><span class="dot"></span> Android — Available Now</div>
+      <div class="badge coming"><span class="dot"></span> iOS — Coming Soon</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">WINSTON</span>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:david@getwinstonai.com">Contact</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Winston AI. Named after a very good corgi.</p>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
