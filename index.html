@@ -3,1111 +3,547 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Winston — Finally. A reason to put your phone down.</title>
-  <meta name="description" content="Winston is the intelligence your smartphone was always missing. Email triage, package tracking, reservations, travel, smart calendar, health — one voice handles everything.">
+  <meta name="description" content="Winston is the intelligence your smartphone always promised. The layer that filters noise, surfaces what matters, and handles the routine — so your phone finally works for you.">
+  <title>Winston — The intelligence your smartphone always promised.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C97A;
-      --gold-dark: #8B6914;
-      --dark: #0A0A0F;
-      --dark-2: #111118;
-      --dark-3: #1A1A26;
-      --cream: #F5F0E8;
-      --muted: #8888AA;
-      --white: #ffffff;
-      --green: #4CAF50;
-      --red: #FF6B6B;
+      --gold: #C9A84C; --gold-light: #E8C97A;
+      --dark: #0A0A0F; --dark-2: #111118; --dark-3: #1A1A26;
+      --cream: #F5F0E8; --muted: #8888AA; --white: #ffffff;
+      --border: #2A2A3A; --green: #4CAF50; --red: #FF6B6B;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--dark);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { background: var(--dark); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
     /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(10, 10, 15, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-decoration: none;
-    }
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--dark);
-      padding: 10px 24px;
-      border-radius: 4px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
-    }
-
-    .nav-cta:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; color: var(--gold); letter-spacing: 0.12em; text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold) !important; color: var(--dark) !important; padding: 9px 22px; border-radius: 4px; font-weight: 500 !important; }
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 40px 80px;
-      position: relative;
-      overflow: hidden;
-    }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 140px 24px 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.25); border-radius: 100px; padding: 6px 16px; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px; }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 24px; max-width: 900px; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero-tagline { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--gold); font-style: italic; margin-bottom: 20px; }
+    .hero-sub { font-size: 1.05rem; color: var(--cream); opacity: 0.7; max-width: 580px; margin: 0 auto 48px; line-height: 1.8; }
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--gold); color: var(--dark); padding: 14px 32px; border-radius: 4px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.2s; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-secondary { border: 1px solid var(--border); color: var(--muted); padding: 14px 32px; border-radius: 4px; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-meta { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 900px;
-      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    /* CONVERSATION DEMO */
+    .demo-section { padding: 100px 24px; max-width: 800px; margin: 0 auto; }
+    .demo-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 48px; }
+    .conversation { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .conv-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .conv-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--dark-3); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold); font-weight: 700; }
+    .conv-name { font-size: 0.875rem; color: var(--cream); font-weight: 500; }
+    .conv-status { font-size: 0.75rem; color: var(--green); }
+    .conv-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+    .msg { display: flex; gap: 10px; align-items: flex-start; }
+    .msg.user { flex-direction: row-reverse; }
+    .msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--dark-3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--muted); flex-shrink: 0; }
+    .msg.user .msg-avatar { background: #1E2A4A; border-color: #2A3A5E; color: var(--cream); }
+    .msg-bubble { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.6; }
+    .msg.assistant .msg-bubble { background: var(--dark-3); border: 1px solid var(--border); color: var(--cream); border-bottom-left-radius: 4px; }
+    .msg.user .msg-bubble { background: #1E2A4A; border: 1px solid #2A3A5E; color: var(--cream); border-bottom-right-radius: 4px; }
+    .msg-label { font-size: 0.7rem; color: var(--gold); font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 4px; }
 
-    .hero-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.2s forwards;
-    }
+    /* PROMISE SECTION */
+    .promise { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 24px; text-align: center; }
+    .promise-inner { max-width: 700px; margin: 0 auto; }
+    .promise h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 24px; }
+    .promise h2 em { color: var(--gold); font-style: italic; }
+    .promise p { font-size: 1.05rem; color: var(--cream); opacity: 0.75; line-height: 1.8; margin-bottom: 16px; }
 
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
-      font-weight: 900;
-      line-height: 1.05;
-      color: var(--white);
-      max-width: 960px;
-      margin-bottom: 12px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.4s forwards;
-    }
-
-    .hero-title em {
-      color: var(--gold);
-      font-style: italic;
-    }
-
-    .hero-tagline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--muted);
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.55s forwards;
-    }
-
-    .hero-desc {
-      font-size: clamp(1rem, 1.8vw, 1.15rem);
-      color: var(--cream);
-      opacity: 0.85;
-      max-width: 600px;
-      margin-bottom: 52px;
-      line-height: 1.75;
-      animation: fadeUp 0.8s ease 0.65s forwards;
-      opacity: 0;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.8s forwards;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--dark);
-      padding: 17px 44px;
-      border-radius: 4px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
-    }
-
-    .hero-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* STAT STRIP */
-    .stat-strip {
-      background: var(--dark-2);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-      gap: 80px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 1.1s forwards;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      font-weight: 900;
-      color: var(--gold);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-top: 4px;
-    }
-
-    /* DEMO BAR */
-    .demo-bar {
-      background: var(--dark-3);
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 12px;
-      padding: 24px 32px;
-      max-width: 720px;
-      width: 100%;
-      margin: 52px auto 0;
-      text-align: left;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 1s forwards;
-    }
-
-    .demo-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-      opacity: 0.7;
-    }
-
-    .demo-line {
-      font-size: 0.92rem;
-      line-height: 1.85;
-      color: var(--muted);
-    }
-
-    .demo-line .user { color: var(--cream); font-weight: 500; }
-    .demo-line .winston { color: var(--gold); }
-
-    /* POSITIONING SECTION */
-    .positioning {
-      padding: 120px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .positioning-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-      font-weight: 900;
-      color: var(--white);
-      line-height: 1.1;
-      max-width: 800px;
-      margin-bottom: 24px;
-    }
-
-    .positioning-headline em { color: var(--gold); font-style: italic; }
-
-    .positioning-body {
-      font-size: 1.1rem;
-      color: var(--cream);
-      opacity: 0.8;
-      max-width: 680px;
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    /* PHONE TIME VISUAL */
-    .time-visual {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 60px;
-    }
-
-    .time-card {
-      background: var(--dark-2);
-      border-radius: 12px;
-      padding: 32px;
-      border: 1px solid rgba(201,168,76,0.12);
-    }
-
-    .time-card.problem { border-left: 3px solid var(--red); }
-    .time-card.solution { border-left: 3px solid var(--green); }
-
-    .time-card-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .time-card.problem .time-card-label { color: var(--red); }
-    .time-card.solution .time-card-label { color: var(--green); }
-
-    .time-card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-
-    .time-card-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .time-card-list li {
-      font-size: 0.9rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .time-card-list li::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .time-card.problem .time-card-list li::before { background: var(--red); }
-    .time-card.solution .time-card-list li::before { background: var(--green); }
-
-    /* SECTION COMMON */
-    section {
-      padding: 100px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-
+    /* SECTION */
+    section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
     .section-title em { color: var(--gold); font-style: italic; }
+    .section-body { font-size: 1.05rem; color: var(--cream); opacity: 0.8; max-width: 620px; line-height: 1.8; margin-bottom: 8px; }
 
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--cream);
-      opacity: 0.8;
-      max-width: 600px;
-      line-height: 1.75;
-    }
+    /* BEFORE / AFTER */
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    .ba-col { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .ba-col.after { border-color: var(--gold); }
+    .ba-title { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .ba-col.after .ba-title { color: var(--gold); }
+    .ba-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; font-size: 0.9rem; line-height: 1.5; }
+    .ba-col:not(.after) .ba-item { color: var(--muted); }
+    .ba-col.after .ba-item { color: var(--cream); }
+    .ba-icon { flex-shrink: 0; margin-top: 1px; font-size: 15px; }
+    .ba-sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    .ba-col.after .ba-sub { color: rgba(245,240,232,0.5); }
 
-    /* FEATURES GRID */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2px;
-      margin-top: 60px;
-      border: 1px solid rgba(201, 168, 76, 0.12);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px; }
+    .feature-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
+    .feature-card:hover { border-color: rgba(201,168,76,0.3); }
+    .feature-icon { font-size: 28px; margin-bottom: 16px; }
+    .feature-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .feature-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .feature-new { display: inline-block; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; margin-bottom: 12px; }
 
-    .feature-card {
-      background: var(--dark-2);
-      padding: 36px 32px;
-      transition: background 0.3s ease;
-      border-bottom: 1px solid rgba(201,168,76,0.06);
-    }
+    /* MODES */
+    .modes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px; }
+    .mode-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .mode-card.featured { border-color: var(--gold); background: #0F0F00; }
+    .mode-icon { font-size: 32px; margin-bottom: 16px; }
+    .mode-name { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .mode-tag { font-size: 0.75rem; color: var(--gold); margin-bottom: 16px; }
+    .mode-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .mode-bullets { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .mode-bullet { font-size: 0.8rem; color: var(--muted); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+    .mode-bullet::before { content: '·'; color: var(--gold); flex-shrink: 0; }
 
-    .feature-card:hover { background: var(--dark-3); }
+    /* PROACTIVE */
+    .proactive-examples { display: flex; flex-direction: column; gap: 16px; margin-top: 60px; }
+    .proactive-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; gap: 20px; align-items: flex-start; }
+    .proactive-icons { display: flex; gap: 4px; flex-shrink: 0; font-size: 20px; align-items: center; }
+    .proactive-plus { color: var(--muted); font-size: 14px; }
+    .proactive-content h4 { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .proactive-content p { font-size: 0.9rem; color: var(--cream); line-height: 1.6; font-style: italic; }
 
-    .feature-icon {
-      font-size: 1.8rem;
-      margin-bottom: 14px;
-      display: block;
-    }
-
-    .feature-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .feature-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* VOICE EXAMPLES */
-    .voice-examples {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .voice-example {
-      background: var(--dark-3);
-      border-radius: 10px;
-      padding: 18px 22px;
-      border-left: 3px solid var(--gold);
-    }
-
-    .voice-example-cmd {
-      font-size: 0.95rem;
-      color: var(--cream);
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    .voice-example-result {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    /* PROACTIVE MODES */
-    .modes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 48px;
-    }
-
-    .mode-card {
-      background: var(--dark-2);
-      border-radius: 12px;
-      padding: 28px 24px;
-      border: 1px solid rgba(201,168,76,0.12);
-      transition: border-color 0.3s ease;
-    }
-
-    .mode-card:hover { border-color: rgba(201,168,76,0.35); }
-
-    .mode-icon {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .mode-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-
-    .mode-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* TWO COL */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .two-col.reverse { direction: rtl; }
-    .two-col.reverse > * { direction: ltr; }
+    /* PRIVACY */
+    .privacy-section { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; padding: 60px; text-align: center; margin-top: 60px; }
+    .privacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; text-align: left; }
+    .privacy-item h4 { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .privacy-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
     /* QUOTE */
-    .quote-section {
-      text-align: center;
-      padding: 80px 40px;
-      background: var(--dark-2);
-      border-top: 1px solid rgba(201, 168, 76, 0.1);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-    }
+    blockquote { border-left: 3px solid var(--gold); padding: 24px 32px; margin: 60px 0; background: var(--dark-2); border-radius: 0 12px 12px 0; }
+    blockquote p { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--cream); line-height: 1.6; }
+    blockquote p em { color: var(--gold); font-style: normal; }
 
-    .quote-text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--cream);
-      max-width: 820px;
-      margin: 0 auto 20px;
-      line-height: 1.55;
-    }
-
-    .quote-text em { color: var(--gold); font-style: normal; }
-
-    /* PRIVACY SECTION */
-    .privacy-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .privacy-card {
-      background: var(--dark-3);
-      border-radius: 10px;
-      padding: 24px;
-      border-left: 3px solid var(--gold);
-    }
-
-    .privacy-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      color: var(--white);
-      font-weight: 700;
-    }
-
-    .privacy-label {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* COMPETITIVE TABLE */
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 48px;
-      font-size: 0.9rem;
-    }
-
-    .compare-table th {
-      padding: 14px 20px;
-      text-align: left;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-    }
-
-    .compare-table td {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      color: var(--cream);
-    }
-
-    .compare-table tr.winston-row td {
-      background: rgba(201,168,76,0.06);
-      color: var(--white);
-      font-weight: 500;
-    }
-
-    .compare-table tr.winston-row td:first-child {
-      color: var(--gold);
-      font-weight: 700;
-    }
-
-    .check { color: var(--green); }
-    .cross { color: var(--red); opacity: 0.6; }
-    .partial { color: var(--gold); }
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    .price-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .price-card.featured { border-color: var(--gold); }
+    .price-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .price-amount { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .price-amount span { font-size: 1.2rem; color: var(--muted); }
+    .price-period { font-size: 0.8rem; color: var(--muted); margin-bottom: 24px; }
+    .price-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .price-cta { display: block; text-align: center; background: var(--gold); color: var(--dark); padding: 12px; border-radius: 4px; font-weight: 500; text-decoration: none; font-size: 0.9rem; }
+    .price-card:not(.featured) .price-cta { background: var(--dark-3); border: 1px solid var(--border); color: var(--cream); }
 
     /* CTA */
-    .cta-section {
-      text-align: center;
-      padding: 120px 40px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      bottom: -100px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4.5vw, 3.4rem);
-      font-weight: 900;
-      color: var(--white);
-      margin-bottom: 16px;
-      line-height: 1.1;
-    }
-
-    .cta-title em { color: var(--gold); font-style: italic; }
-
-    .cta-desc {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 48px;
-      line-height: 1.75;
-    }
-
-    .cta-email {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--dark);
-      padding: 18px 52px;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
-      margin-bottom: 20px;
-    }
-
-    .cta-email:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(201,168,76,0.3);
-    }
-
-    .cta-sub { font-size: 0.82rem; color: var(--muted); }
-
-    .platform-badges {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 32px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--dark-3);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 6px;
-      padding: 10px 18px;
-      font-size: 0.85rem;
-      color: var(--cream);
-    }
-
-    .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
-    .badge.coming { opacity: 0.45; }
+    .cta-section { text-align: center; padding: 120px 24px; position: relative; }
+    .cta-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%); pointer-events: none; }
+    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; color: var(--white); margin-bottom: 20px; }
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section p { color: var(--muted); font-size: 1rem; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid rgba(201,168,76,0.1);
-      padding: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-    }
-
+    footer { border-top: 1px solid var(--border); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.2rem; color: var(--gold); letter-spacing: 0.12em; }
     .footer-links { display: flex; gap: 24px; }
-
-    .footer-links a {
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .footer-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
     .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.75rem; color: var(--muted); opacity: 0.4; width: 100%; }
+    .section-divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
 
-    .footer-copy {
-      font-size: 0.8rem;
-      color: var(--muted);
-      opacity: 0.5;
-      width: 100%;
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       nav { padding: 16px 20px; }
-      .hero { padding: 110px 24px 60px; }
-      section { padding: 60px 24px; }
-      .positioning { padding: 80px 24px; }
-      .two-col { grid-template-columns: 1fr; gap: 40px; }
-      .two-col.reverse { direction: ltr; }
-      .time-visual { grid-template-columns: 1fr; }
-      .stat-strip { gap: 40px; padding: 32px 24px; }
-      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-      .compare-table { font-size: 0.78rem; }
-      .compare-table th, .compare-table td { padding: 10px 12px; }
+      .nav-links { display: none; }
+      .features-grid, .before-after, .modes-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .privacy-grid { grid-template-columns: 1fr; }
+      footer { padding: 32px 20px; }
+      .privacy-section { padding: 40px 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">WINSTON</a>
-    <a href="mailto:david@getwinstonai.com" class="nav-cta">Request Beta Access</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#modes">How It Works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="/user-guide.html">User Guide</a>
+      <a href="mailto:david@getwinstonai.com" class="nav-cta">Request Beta Access</a>
+    </div>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <p class="hero-eyebrow">Powered by Claude &mdash; Android Beta Now Available</p>
-    <h1 class="hero-title">Finally. A reason to put your <em>phone down.</em></h1>
-    <p class="hero-tagline">The intelligence your smartphone was always missing.</p>
-    <p class="hero-desc">
-      Your phone got smart. It never got wise. Winston is the layer of intelligence that sits above your apps and actually manages your life &mdash; so you don&rsquo;t have to.
-    </p>
-    <div class="hero-cta-group">
+    <div class="hero-badge"><span></span> Android Beta Now Available</div>
+    <h1>Finally. A reason to put your <em>phone down.</em></h1>
+    <p class="hero-tagline">The intelligence your smartphone always promised.</p>
+    <p class="hero-sub">Your smartphone was supposed to make your life easier. Instead it made you its full-time manager. Winston is what your phone should have been from the start.</p>
+    <div class="hero-ctas">
       <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="btn-primary">Request Beta Access</a>
-      <p class="hero-note">Android now &nbsp;&bull;&nbsp; iOS coming soon &nbsp;&bull;&nbsp; First month free</p>
+      <a href="/user-guide.html" class="btn-secondary">See How It Works</a>
     </div>
-
-    <div class="demo-bar">
-      <p class="demo-label">A Wednesday morning with Winston</p>
-      <p class="demo-line"><span class="user">You:</span> &ldquo;Good morning Winston.&rdquo;</p>
-      <p class="demo-line"><span class="winston">Winston:</span> &ldquo;Good morning. 74&deg; and sunny. You&rsquo;ve got pickleball at 9 &mdash; leave by 8:40. Your Amazon order delivers today. Three emails need a reply &mdash; I&rsquo;ve drafted them. Susan&rsquo;s birthday is in 10 days. Rangers play tonight at 7. Anything you want to handle before you head out?&rdquo;</p>
-    </div>
+    <p class="hero-meta">Android now &nbsp;·&nbsp; iOS coming soon &nbsp;·&nbsp; First month free</p>
   </div>
 
-  <!-- STAT STRIP -->
-  <div class="stat-strip">
-    <div class="stat-item">
-      <span class="stat-number">4.6 hrs</span>
-      <span class="stat-label">Average daily screen time</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">12 hrs</span>
-      <span class="stat-label">Weekly admin on phone</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">80+</span>
-      <span class="stat-label">Notifications per day</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">1</span>
-      <span class="stat-label">Voice to handle all of it</span>
-    </div>
-  </div>
-
-  <!-- POSITIONING -->
-  <div class="positioning fade-in">
-    <h2 class="positioning-headline">Your phone is running your life.<br><em>Winston fixes that.</em></h2>
-    <p class="positioning-body">
-      The average person spends 12 hours every week managing their smartphone &mdash; triaging email, tracking packages, coordinating meetings, responding to texts, checking notifications. That&rsquo;s a full day and a half every week spent managing the device that was supposed to manage things for you.
-    </p>
-    <p class="positioning-body">
-      Winston ends that. One voice. Everything handled. Phone down.
-    </p>
-
-    <div class="time-visual">
-      <div class="time-card problem">
-        <p class="time-card-label">Without Winston</p>
-        <p class="time-card-title">You manage the apps</p>
-        <ul class="time-card-list">
-          <li>Open Gmail. Find the email. Reply.</li>
-          <li>Open UPS app. Check tracking number.</li>
-          <li>Open Calendar. Check for conflicts.</li>
-          <li>Open OpenTable. Search. Book.</li>
-          <li>Open Maps. Enter address. Navigate.</li>
-          <li>Repeat 40 more times today.</li>
-        </ul>
+  <!-- CONVERSATION DEMO -->
+  <div class="demo-section">
+    <p class="demo-label">A Wednesday morning with Winston</p>
+    <div class="conversation">
+      <div class="conv-header">
+        <div class="conv-avatar">JB</div>
+        <div><div class="conv-name">James Bond</div><div class="conv-status">● Active</div></div>
       </div>
-      <div class="time-card solution">
-        <p class="time-card-label">With Winston</p>
-        <p class="time-card-title">Winston manages it all</p>
-        <ul class="time-card-list">
-          <li>&ldquo;Winston, draft a reply to John.&rdquo;</li>
-          <li>&ldquo;Where&rsquo;s my Amazon package?&rdquo;</li>
-          <li>&ldquo;Am I free Thursday at 2?&rdquo;</li>
-          <li>&ldquo;Book Nobu for 2 this Saturday at 7.&rdquo;</li>
-          <li>&ldquo;Directions to my dentist.&rdquo;</li>
-          <li>Phone stays in your pocket.</li>
-        </ul>
+      <div class="conv-body">
+        <div class="msg user">
+          <div class="msg-avatar">D</div>
+          <div class="msg-bubble">Good morning James.</div>
+        </div>
+        <div class="msg assistant">
+          <div class="msg-avatar">JB</div>
+          <div class="msg-bubble">
+            <div class="msg-label">James Bond</div>
+            Good morning. 74° and clear. You have a 9am meeting — leave by 8:40. Your Amazon package arrives today. One email from John needs a reply — I've drafted something. Anything before you head out?
+          </div>
+        </div>
+        <div class="msg user">
+          <div class="msg-avatar">D</div>
+          <div class="msg-bubble">Book Nobu for 2 this Saturday at 7.</div>
+        </div>
+        <div class="msg assistant">
+          <div class="msg-avatar">JB</div>
+          <div class="msg-bubble">
+            <div class="msg-label">James Bond</div>
+            Done — reservation confirmed at Nobu Dallas, Saturday at 7:00 PM, party of 2. Added to your calendar.
+          </div>
+        </div>
+        <div class="msg user">
+          <div class="msg-avatar">D</div>
+          <div class="msg-bubble">Remind Alex at noon to pick up the dry cleaning.</div>
+        </div>
+        <div class="msg assistant">
+          <div class="msg-avatar">JB</div>
+          <div class="msg-bubble">
+            <div class="msg-label">James Bond</div>
+            Alex will hear from me at noon. Anything else before your meeting?
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- QUOTE -->
-  <div class="quote-section">
-    <p class="quote-text">&ldquo;Alexa answers questions. Siri sets timers. Google searches the world. <em>Winston knows you.</em> And unlike the others, it never sells what it knows.&rdquo;</p>
+  <!-- PROMISE -->
+  <div class="promise">
+    <div class="promise-inner">
+      <h2>Your smartphone was supposed to <em>simplify your life.</em></h2>
+      <p>Instead it created a second job. Managing the apps. Processing the notifications. Triaging the emails. Tracking the packages. Booking the reservations. The phone got faster. It never got wiser.</p>
+      <p>Winston is the missing layer. Not another app — the intelligence that sits above your apps and decides what's worth your attention, when. So you interact with your phone when you choose to. Not because it demands it.</p>
+    </div>
   </div>
+
+  <div class="section-divider"></div>
+
+  <!-- BEFORE / AFTER -->
+  <section>
+    <p class="section-eyebrow">The difference</p>
+    <h2 class="section-title">Less time managing.<br><em>More time living.</em></h2>
+    <p class="section-body">Winston doesn't replace your apps. It makes them less intrusive. Your email still lives in Gmail. Your calendar is still Google Calendar. Winston is the layer that decides what needs your attention — and handles everything that doesn't.</p>
+
+    <div class="before-after">
+      <div class="ba-col">
+        <div class="ba-title">Without Winston</div>
+        <div class="ba-item">
+          <span class="ba-icon">📧</span>
+          <div>80+ notifications today<div class="ba-sub">Most of which don't matter. All of which interrupt you.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">📦</span>
+          <div>Check the tracking app<div class="ba-sub">Open UPS. Or FedEx. Or USPS. Or Amazon. Whichever one this time.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">🍽️</span>
+          <div>Open OpenTable. Search. Book.<div class="ba-sub">Three apps, four screens, two minutes.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">📅</span>
+          <div>Check calendar. Find conflict. Respond to meeting.<div class="ba-sub">Manually. Every time.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">🛒</span>
+          <div>Try to remember the shopping list<div class="ba-sub">Forget half of it. Go back to the store.</div></div>
+        </div>
+      </div>
+      <div class="ba-col after">
+        <div class="ba-title">With Winston</div>
+        <div class="ba-item">
+          <span class="ba-icon">✓</span>
+          <div>3 notifications that matter<div class="ba-sub">Package arriving. Meeting conflict. One email that needs a reply. That's it.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">✓</span>
+          <div>"Where's my package?" — answered instantly<div class="ba-sub">Winston scans your email and tracks everything automatically.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">✓</span>
+          <div>"Book Nobu for 2 Saturday at 7." Done.<div class="ba-sub">Confirmed via OpenTable or Resy. Calendar updated.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">✓</span>
+          <div>Trusted senders handled automatically<div class="ba-sub">Meeting accepted. Reply sent. You're notified — not asked.</div></div>
+        </div>
+        <div class="ba-item">
+          <span class="ba-icon">✓</span>
+          <div>Shopping list ready when you walk in<div class="ba-sub">Sorted by store section. Add items by voice. Winston remembers.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
 
   <!-- FEATURES -->
-  <section style="padding-top: 80px; padding-bottom: 40px;">
-    <div class="fade-in" style="text-align: center; margin-bottom: 0;">
-      <p class="section-eyebrow" style="text-align: center;">What Winston handles</p>
-      <h2 class="section-title" style="text-align: center; margin: 0 auto 8px;">Everything that was keeping<br><em>you on your phone.</em></h2>
-    </div>
-    <div class="features-grid fade-in">
+  <section id="features">
+    <p class="section-eyebrow">What Winston handles</p>
+    <h2 class="section-title">The routine that was<br><em>consuming your day.</em></h2>
+
+    <div class="features-grid">
       <div class="feature-card">
-        <span class="feature-icon">☀️</span>
-        <p class="feature-title">Intelligent Morning Briefing</p>
-        <p class="feature-desc">Weather, calendar with live departure times, email that needs replies, packages arriving today, travel details, sports, local events, and news &mdash; all in one 90-second conversation before you ask.</p>
+        <div class="feature-icon">☀️</div>
+        <div class="feature-title">Intelligent Morning Briefing</div>
+        <div class="feature-desc">Weather, calendar with departure times, the one email that needs a reply, packages arriving today, 2-3 news stories with context, a feel-good story, and a thought to carry into your day. One conversation. Everything covered.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">✉️</span>
-        <p class="feature-title">Email Triage &amp; Drafting</p>
-        <p class="feature-desc">Winston scans your inbox, flags what needs attention, and drafts replies for your approval. You hear the draft, say &ldquo;send it&rdquo; or edit by voice. Email handled without opening your email app once.</p>
+        <div class="feature-new">New</div>
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-title">Reservation Booking</div>
+        <div class="feature-desc">Winston books directly via OpenTable and Resy — not just pre-fills the form. Say where and when, Winston confirms. Your favorite restaurants list has one-tap booking links built in.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">📦</span>
-        <p class="feature-title">Order Tracker</p>
-        <p class="feature-desc">Winston scans your email for order confirmations and tracks every package across UPS, FedEx, USPS, and 900+ carriers. Green, yellow, red status. Winston mentions deliveries in your morning briefing.</p>
+        <div class="feature-new">New</div>
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">Autopilot Mode</div>
+        <div class="feature-desc">In Autopilot, Winston acts on your behalf. Meeting requests from trusted senders get accepted automatically. Routine emails get drafted and sent. You're notified of what happened — not asked to approve every step.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🍽️</span>
-        <p class="feature-title">Reservation Intelligence</p>
-        <p class="feature-desc">&ldquo;Book Nobu for 2 this Saturday at 7.&rdquo; Winston finds the restaurant on OpenTable, Resy, or Yelp and opens the booking page with your details pre-filled. One sentence. Done.</p>
+        <div class="feature-icon">✉️</div>
+        <div class="feature-title">Email Intelligence</div>
+        <div class="feature-desc">Winston scans your inbox, surfaces what actually needs attention, and drafts replies. In Autopilot mode, trusted senders get handled automatically. Everything else is waiting for you — organized, not chaotic.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">📅</span>
-        <p class="feature-title">Smart Calendar</p>
-        <p class="feature-desc">Winston scans emails for meeting requests, checks your calendar for conflicts, and surfaces them in your briefing. Accept or decline by voice. Trusted senders get auto-accepted based on your rules.</p>
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Order Tracking</div>
+        <div class="feature-desc">Winston scans your email for order confirmations and tracks every package across 900+ carriers automatically. No apps to open. Winston mentions deliveries in your morning briefing and notifies you when something's out for delivery.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">✈️</span>
-        <p class="feature-title">Travel Monitoring</p>
-        <p class="feature-desc">Winston scans your email for flight confirmations, hotel bookings, and rental cars. Builds your complete trip profile. Morning of travel: flight number, gate, departure time, drive time to airport, destination weather.</p>
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Smart Calendar</div>
+        <div class="feature-desc">Scans emails for meeting requests, checks for conflicts, and surfaces them in your briefing. Trusted senders auto-accepted. Live departure times based on traffic — Winston tells you when to leave before you think to ask.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">📍</span>
-        <p class="feature-title">Departure Alerts</p>
-        <p class="feature-desc">Winston monitors your calendar and live traffic. Tells you when to leave before you think to ask. Offers to text the person you&rsquo;re meeting that you&rsquo;re on your way.</p>
+        <div class="feature-new">New</div>
+        <div class="feature-icon">🛒</div>
+        <div class="feature-title">Smart Lists</div>
+        <div class="feature-desc">Shopping list sorted by store category automatically. Add items by voice. Walk into a grocery store — Winston shows what you need, sorted by aisle. Restaurant, movie, and book lists with links built in automatically.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🛒</span>
-        <p class="feature-title">Geofencing Lists</p>
-        <p class="feature-desc">Walk into a grocery store and Winston alerts you to items on your list. Walk past a pharmacy and Winston reminds you about the prescription you&rsquo;ve been forgetting. Location-aware, hands free.</p>
+        <div class="feature-new">New</div>
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">Winston Connect</div>
+        <div class="feature-desc">When the people you care about also have Winston, coordination becomes effortless. Send reminders, share lists, schedule group events — all by voice. "Remind Alex at noon to pick up the kids." Done.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">💊</span>
-        <p class="feature-title">Medication Management</p>
-        <p class="feature-desc">Winston tracks your medications, checks for interactions, and confirms acknowledgment. Family members on Winston Connect get a quiet daily confirmation. Never wonder if you took it.</p>
+        <div class="feature-icon">✈️</div>
+        <div class="feature-title">Travel Intelligence</div>
+        <div class="feature-desc">Winston scans your email for flight, hotel, and rental confirmations and builds your complete trip automatically. Morning of travel: flight details, drive time to the airport based on live traffic, destination weather.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🔗</span>
-        <p class="feature-title">Winston Connect</p>
-        <p class="feature-desc">Connect with people you care about. Send reminders, share lists, coordinate group schedules. Winston finds a time for dinner that works for everyone. Hands free, both ways.</p>
+        <div class="feature-icon">📍</div>
+        <div class="feature-title">Location Awareness</div>
+        <div class="feature-desc">Walk into a grocery store and your shopping list appears, sorted by aisle. Near the pharmacy? Winston shows what you need to pick up. Your location context, working for you without you asking.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">💪</span>
-        <p class="feature-title">Health &amp; Recovery</p>
-        <p class="feature-desc">Connect Garmin, Oura, or Google Fit. Winston mentions your sleep score and recovery in your morning briefing &mdash; one sentence, not a dashboard. Suggests moving outdoor activities when it&rsquo;s 95 degrees.</p>
+        <div class="feature-icon">💊</div>
+        <div class="feature-title">Medication Management</div>
+        <div class="feature-desc">Tracks your medications, checks for interactions, and sends morning reminders. PIN-protected. Family members connected via Winston Connect can receive a quiet daily confirmation. Never wonder if you took it.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🌙</span>
-        <p class="feature-title">Evening Check-In</p>
-        <p class="feature-desc">A real conversation about how the day went. Winston notices patterns, previews tomorrow, and holds you gently accountable. Not a survey &mdash; a debrief with someone paying attention.</p>
+        <div class="feature-icon">🌙</div>
+        <div class="feature-title">Evening Check-In</div>
+        <div class="feature-desc">A real conversation about how the day went. Winston listens, previews tomorrow, and helps you capture anything worth remembering before you rest. Not a survey — a brief debrief with someone paying attention.</div>
       </div>
     </div>
   </section>
 
-  <!-- PROACTIVE INTELLIGENCE -->
-  <section class="fade-in">
-    <p class="section-eyebrow">Proactive Intelligence</p>
-    <h2 class="section-title">Winston connects dots<br>you haven&rsquo;t connected <em>yet.</em></h2>
-    <p class="section-body">
-      Every other assistant waits to be asked. Winston thinks ahead &mdash; connecting your calendar, weather, health, contacts, and email to surface insights before you knew you needed them.
-    </p>
+  <div class="section-divider"></div>
 
-    <div class="voice-examples" style="margin-top: 40px;">
-      <div class="voice-example">
-        <p class="voice-example-cmd">📅 + 🌧️ + 🏓</p>
-        <p class="voice-example-result">&ldquo;You have pickleball Saturday at 10am. It&rsquo;s going to rain all morning. Moody YMCA has open indoor court time at 8am &mdash; want me to move it and let the group know?&rdquo;</p>
-      </div>
-      <div class="voice-example">
-        <p class="voice-example-cmd">✈️ + 📅 + 👨‍👧</p>
-        <p class="voice-example-result">&ldquo;You land in Nashville at 6pm. Olivia&rsquo;s recital is at 7pm in Knoxville. You won&rsquo;t make it &mdash; want me to send her a note?&rdquo;</p>
-      </div>
-      <div class="voice-example">
-        <p class="voice-example-cmd">💰 + ✉️</p>
-        <p class="voice-example-result">&ldquo;Your electric bill this month is $340 &mdash; about 40% higher than usual. Worth looking into.&rdquo;</p>
-      </div>
-      <div class="voice-example">
-        <p class="voice-example-cmd">📅 + 👤</p>
-        <p class="voice-example-result">&ldquo;Susan&rsquo;s birthday is in 10 days. You haven&rsquo;t made plans yet. Want me to add a reminder to make a reservation?&rdquo;</p>
-      </div>
-    </div>
+  <!-- MODES -->
+  <section id="modes">
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Winston adapts to<br><em>how present you want it.</em></h2>
+    <p class="section-body">One setting. Three modes. Winston reads your calendar and suggests the right one automatically. Switch anytime.</p>
 
-    <div style="margin-top: 60px;">
-      <p class="section-eyebrow">Proactive Mode</p>
-      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--white); margin-bottom: 12px;">Winston adapts to your day.</h3>
-      <p class="section-body">Turn the dial up or down. Winston reads your calendar and suggests the right mode automatically.</p>
-      <div class="modes-grid">
-        <div class="mode-card">
-          <span class="mode-icon">🤫</span>
-          <p class="mode-name">Whisper</p>
-          <p class="mode-desc">Minimal. Only speaks when spoken to. Perfect for focused work days.</p>
+    <div class="modes-grid">
+      <div class="mode-card featured">
+        <div class="mode-icon">🤖</div>
+        <div class="mode-name">Autopilot</div>
+        <div class="mode-tag">Winston acts, you're notified</div>
+        <div class="mode-desc">Winston handles the routine. You focus on the things that actually need you.</div>
+        <div class="mode-bullets">
+          <div class="mode-bullet">Trusted senders auto-accepted and replied to</div>
+          <div class="mode-bullet">Email intelligence running every 15 minutes</div>
+          <div class="mode-bullet">You're notified of what happened, not asked to approve every step</div>
+          <div class="mode-bullet">VIPs always get through immediately</div>
         </div>
-        <div class="mode-card">
-          <span class="mode-icon">⚡</span>
-          <p class="mode-name">Balanced</p>
-          <p class="mode-desc">Default. Full briefing, time-sensitive alerts only. The right amount of help.</p>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">👁</div>
+        <div class="mode-name">Supervised</div>
+        <div class="mode-tag">Winston prepares, you decide</div>
+        <div class="mode-desc">Full intelligence, full control. Winston does the work — you approve the actions that matter.</div>
+        <div class="mode-bullets">
+          <div class="mode-bullet">Replies drafted, you approve before sending</div>
+          <div class="mode-bullet">Meetings flagged, you accept or decline</div>
+          <div class="mode-bullet">Email intelligence every 30 minutes</div>
+          <div class="mode-bullet">VIPs always get through immediately</div>
         </div>
-        <div class="mode-card">
-          <span class="mode-icon">🚀</span>
-          <p class="mode-name">Full Partner</p>
-          <p class="mode-desc">Maximum engagement. Cross-domain insights, relationship nudges, schedule risk warnings.</p>
-        </div>
-        <div class="mode-card">
-          <span class="mode-icon">🌴</span>
-          <p class="mode-name">Vacation</p>
-          <p class="mode-desc">Winston handles everything. You relax. Phone stays in your bag.</p>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">🌙</div>
+        <div class="mode-name">Briefing Only</div>
+        <div class="mode-tag">One conversation, everything covered</div>
+        <div class="mode-desc">Winston works quietly in the background. Your morning briefing is the only touchpoint.</div>
+        <div class="mode-bullets">
+          <div class="mode-bullet">No proactive interruptions during the day</div>
+          <div class="mode-bullet">Email intelligence every 2 hours</div>
+          <div class="mode-bullet">True emergencies and VIPs still get through</div>
+          <div class="mode-bullet">Perfect for focused work days</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COMPETITIVE -->
-  <section class="fade-in" style="padding-top: 60px;">
-    <p class="section-eyebrow">Why Winston</p>
-    <h2 class="section-title">The category that <em>didn&rsquo;t exist.</em></h2>
-    <p class="section-body">Every competitor does one thing well. Winston is the first to combine voice-first, mobile-native, proactive intelligence, and a social layer in a single product.</p>
+  <div class="section-divider"></div>
 
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>Siri / Alexa</th>
-          <th>ChatGPT</th>
-          <th>alfred_ / Lindy</th>
-          <th>Reclaim</th>
-          <th style="color: var(--gold);">Winston</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Voice-first on mobile</td>
-          <td class="check">✓</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Proactive (no prompting)</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="partial">Email only</td>
-          <td class="partial">Calendar only</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Personal memory</td>
-          <td class="cross">✗</td>
-          <td class="partial">Limited</td>
-          <td class="partial">Limited</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Cross-domain intelligence</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Package tracking</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Restaurant reservations</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>Social / family layer</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr>
-          <td>No ads, no data selling</td>
-          <td class="cross">✗</td>
-          <td class="cross">✗</td>
-          <td class="check">✓</td>
-          <td class="check">✓</td>
-          <td class="check">✓</td>
-        </tr>
-        <tr class="winston-row">
-          <td><strong>Price</strong></td>
-          <td>Free*</td>
-          <td>$20/mo</td>
-          <td>$25/mo</td>
-          <td>$10/mo</td>
-          <td style="color: var(--gold);">$9.99/mo</td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="font-size: 0.75rem; color: var(--muted); margin-top: 12px;">*Free because your data funds their ad business.</p>
+  <!-- PROACTIVE -->
+  <section>
+    <p class="section-eyebrow">Connected intelligence</p>
+    <h2 class="section-title">Winston connects dots<br><em>you haven't connected yet.</em></h2>
+    <p class="section-body">Every other assistant waits to be asked. Winston notices the connections between your calendar, weather, email, contacts, and lists — and surfaces what matters before you thought to ask.</p>
+
+    <div class="proactive-examples">
+      <div class="proactive-card">
+        <div class="proactive-icons">📅 <span class="proactive-plus">+</span> 🌧️ <span class="proactive-plus">+</span> 🏓</div>
+        <div class="proactive-content">
+          <h4>Schedule + Weather + Activity</h4>
+          <p>"You have a tennis lesson Saturday at 10am. It's going to rain all morning. Your club has open indoor court time at 8am — want me to reschedule and let your instructor know?"</p>
+        </div>
+      </div>
+      <div class="proactive-card">
+        <div class="proactive-icons">✈️ <span class="proactive-plus">+</span> 📅</div>
+        <div class="proactive-content">
+          <h4>Travel + Calendar</h4>
+          <p>"You land in Nashville at 6pm. You have a dinner reservation in town at 7:30. Based on current traffic from the airport, leave by 6:40 to make it comfortably."</p>
+        </div>
+      </div>
+      <div class="proactive-card">
+        <div class="proactive-icons">💰 <span class="proactive-plus">+</span> ✉️</div>
+        <div class="proactive-content">
+          <h4>Bills + Email</h4>
+          <p>"Your electric bill this month is $340 — about 40% higher than usual. I've flagged it and drafted a message to your provider asking about the discrepancy. Want me to send it?"</p>
+        </div>
+      </div>
+      <div class="proactive-card">
+        <div class="proactive-icons">🍽️ <span class="proactive-plus">+</span> 📅 <span class="proactive-plus">+</span> 🚗</div>
+        <div class="proactive-content">
+          <h4>Reservations + Calendar + Traffic</h4>
+          <p>"You have dinner at Nobu Saturday at 7. Based on Saturday evening traffic from your address, leave by 6:30. Want me to set a departure reminder?"</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- NO ADS -->
-  <section class="fade-in">
-    <div class="two-col reverse">
-      <div>
-        <p class="section-eyebrow">A different relationship</p>
-        <h2 class="section-title">No ads. No data selling. <em>Ever.</em></h2>
-        <p class="section-body">
-          Amazon, Google, and Apple cannot build a genuine personal AI companion without undermining their ad-dependent business models. That&rsquo;s not cynicism &mdash; it&rsquo;s their business model in writing.
-        </p>
-        <p class="section-body" style="margin-top: 16px;">
-          Winston&rsquo;s only business model is being useful to you. $9.99 a month. Nothing else.
-        </p>
+  <div class="section-divider"></div>
+
+  <!-- QUOTE -->
+  <section>
+    <blockquote>
+      <p>"Alexa answers questions. Siri sets timers. Google searches the world. <em>Winston knows you.</em> And unlike the others, it never sells what it knows."</p>
+    </blockquote>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRIVACY -->
+  <section id="privacy">
+    <p class="section-eyebrow">A different relationship</p>
+    <h2 class="section-title">No ads. No data selling.<br><em>Ever.</em></h2>
+    <div class="privacy-section">
+      <p style="font-size:1.05rem;color:var(--cream);opacity:0.8;max-width:620px;margin:0 auto;">Amazon, Google, and Apple cannot build a genuine personal AI companion without undermining their ad-dependent business models. That's not cynicism — it's their business model in writing. Winston's only revenue is your subscription. That structural difference changes everything about how we think about your data.</p>
+      <div class="privacy-grid">
+        <div class="privacy-item">
+          <h4>Zero ads</h4>
+          <p>Winston products are completely ad-free. No advertisers. No promoted content. No one paying to influence what Winston tells you.</p>
+        </div>
+        <div class="privacy-item">
+          <h4>Zero data selling</h4>
+          <p>Your data is never sold to data brokers, advertisers, or any third party for any commercial purpose. Not now. Not ever. Not in the fine print.</p>
+        </div>
+        <div class="privacy-item">
+          <h4>Minimum collected</h4>
+          <p>When your data has no commercial value to us, we have no reason to collect more than we need. Winston collects the minimum required to be genuinely useful to you.</p>
+        </div>
       </div>
-      <div class="privacy-cards">
-        <div class="privacy-card">
-          <p class="privacy-number">$9.99 <span style="font-size: 1rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 300;">/ month</span></p>
-          <p class="privacy-label">Or $99/year &mdash; 2 months free</p>
-        </div>
-        <div class="privacy-card">
-          <p class="privacy-number">Zero</p>
-          <p class="privacy-label">Ads served. Ever.</p>
-        </div>
-        <div class="privacy-card">
-          <p class="privacy-number">None</p>
-          <p class="privacy-label">Data sold. To anyone. For any reason.</p>
-        </div>
-        <div class="privacy-card">
-          <p class="privacy-number">$24.99</p>
-          <p class="privacy-label">Family Plan &mdash; up to 5 members, each with their own private Winston</p>
-        </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRICING -->
+  <section>
+    <p class="section-eyebrow">Simple pricing</p>
+    <h2 class="section-title">One price.<br><em>Everything included.</em></h2>
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <div class="price-label">Individual</div>
+        <div class="price-amount">$9<span>.99/mo</span></div>
+        <div class="price-period">Or $99/year — 2 months free</div>
+        <div class="price-desc">Every feature. Unlimited use. No per-use charges hidden in the pricing. Your first month is completely free. No credit card required to start.</div>
+        <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="price-cta">Request Beta Access</a>
+      </div>
+      <div class="price-card">
+        <div class="price-label">Family Plan</div>
+        <div class="price-amount">$24<span>.99/mo</span></div>
+        <div class="price-period">Or $249/year — up to 5 members</div>
+        <div class="price-desc">Each family member gets their own private Winston. Shared lists, cross-user reminders, and group coordination all included. Everyone's data stays private.</div>
+        <a href="mailto:david@getwinstonai.com?subject=Winston Family Plan Beta" class="price-cta">Request Beta Access</a>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <div class="cta-section fade-in">
-    <p class="section-eyebrow" style="text-align: center;">Limited Beta &mdash; Android</p>
-    <h2 class="cta-title">Ready to put your <em>phone down?</em></h2>
-    <p class="cta-desc">We&rsquo;re looking for people willing to use Winston every day and tell us honestly what works and what doesn&rsquo;t. Your first month is completely free. No credit card required.</p>
-    <div>
-      <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="cta-email">Request Beta Access</a>
-    </div>
-    <p class="cta-sub">Email david@getwinstonai.com &nbsp;&bull;&nbsp; Android required &nbsp;&bull;&nbsp; iOS coming soon</p>
-    <div class="platform-badges">
-      <div class="badge"><span class="dot"></span> Android &mdash; Available Now</div>
-      <div class="badge coming"><span class="dot"></span> iOS &mdash; Coming Soon</div>
-    </div>
+  <div class="cta-section">
+    <h2>Ready to put your <em>phone down?</em></h2>
+    <p>We're looking for people willing to use Winston every day and tell us honestly what works and what doesn't. Your first month is completely free.</p>
+    <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="btn-primary">Request Beta Access — No Credit Card</a>
+    <p style="margin-top:20px;font-size:0.8rem;color:var(--muted);">Android required &nbsp;·&nbsp; iOS coming soon &nbsp;·&nbsp; First month free</p>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <span class="footer-logo">WINSTON</span>
     <div class="footer-links">
+      <a href="/user-guide.html">User Guide</a>
       <a href="/privacy.html">Privacy Policy</a>
       <a href="/terms.html">Terms of Service</a>
       <a href="mailto:david@getwinstonai.com">Contact</a>
     </div>
-    <p class="footer-copy">&copy; 2026 Winston AI. Named after a very good corgi.</p>
+    <p class="footer-copy">© 2026 Winston AI. Named after a very good corgi. Powered by Claude.</p>
   </footer>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  </script>
 
 </body>
 </html>
