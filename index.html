@@ -19,30 +19,32 @@
     html { scroll-behavior: smooth; }
     body { background: var(--dark); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,168,76,0.12); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; color: var(--gold); letter-spacing: 0.12em; text-decoration: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 50%; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; color: var(--gold); letter-spacing: 0.12em; }
     .nav-links { display: flex; gap: 32px; align-items: center; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--gold); }
     .nav-cta { background: var(--gold) !important; color: var(--dark) !important; padding: 9px 22px; border-radius: 4px; font-weight: 500 !important; }
 
-    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 140px 24px 80px; position: relative; overflow: hidden; }
+    .hero { min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 24px 60px; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%); pointer-events: none; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.25); border-radius: 100px; padding: 6px 16px; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px; }
     .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 24px; max-width: 900px; }
     .hero h1 em { color: var(--gold); font-style: italic; }
     .hero-tagline { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--gold); font-style: italic; margin-bottom: 20px; }
-    .hero-sub { font-size: 1.05rem; color: var(--cream); opacity: 0.7; max-width: 580px; margin: 0 auto 48px; line-height: 1.8; }
+    .hero-sub { font-size: 1.05rem; color: var(--cream); opacity: 0.7; max-width: 580px; margin: 0 auto 40px; line-height: 1.8; }
     .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
     .btn-primary { background: var(--gold); color: var(--dark); padding: 14px 32px; border-radius: 4px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.2s; }
     .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
     .btn-secondary { border: 1px solid var(--border); color: var(--muted); padding: 14px 32px; border-radius: 4px; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-    .hero-meta { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
+    .hero-meta { margin-top: 20px; font-size: 0.8rem; color: var(--muted); }
 
-    .demo-section { padding: 100px 24px; max-width: 800px; margin: 0 auto; }
-    .demo-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 48px; }
+    .demo-section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+    .demo-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 40px; }
     .conversation { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
     .conv-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
     .conv-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--dark-3); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold); font-weight: 700; }
@@ -58,19 +60,19 @@
     .msg.user .msg-bubble { background: #1E2A4A; border: 1px solid #2A3A5E; color: var(--cream); border-bottom-right-radius: 4px; }
     .msg-label { font-size: 0.7rem; color: var(--gold); font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 4px; }
 
-    .promise { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 24px; text-align: center; }
+    .promise { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 70px 24px; text-align: center; }
     .promise-inner { max-width: 700px; margin: 0 auto; }
     .promise h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 24px; }
     .promise h2 em { color: var(--gold); font-style: italic; }
     .promise p { font-size: 1.05rem; color: var(--cream); opacity: 0.75; line-height: 1.8; margin-bottom: 16px; }
 
-    section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
     .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
     .section-title em { color: var(--gold); font-style: italic; }
     .section-body { font-size: 1.05rem; color: var(--cream); opacity: 0.8; max-width: 620px; line-height: 1.8; margin-bottom: 8px; }
 
-    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; }
     .ba-col { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
     .ba-col.after { border-color: var(--gold); }
     .ba-title { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
@@ -82,7 +84,6 @@
     .ba-sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
     .ba-col.after .ba-sub { color: rgba(245,240,232,0.5); }
 
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px; }
     .feature-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
     .feature-card:hover { border-color: rgba(201,168,76,0.3); }
     .feature-icon { font-size: 28px; margin-bottom: 16px; }
@@ -90,31 +91,46 @@
     .feature-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
     .feature-new { display: inline-block; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; margin-bottom: 12px; }
 
-    .modes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 60px; }
-    .mode-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
-    .mode-card.featured { border-color: var(--gold); background: #0F0F00; }
-    .mode-icon { font-size: 32px; margin-bottom: 16px; }
-    .mode-name { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-    .mode-tag { font-size: 0.75rem; color: var(--gold); margin-bottom: 16px; }
-    .mode-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 50px; }
+    .pillar-card { background: #0F0F00; border: 1px solid var(--gold); border-radius: 12px; padding: 32px; }
+    .pillar-icon { font-size: 32px; margin-bottom: 16px; }
+    .pillar-name { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .pillar-tag { font-size: 0.75rem; color: var(--gold); margin-bottom: 16px; }
+    .pillar-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .pillar-desc strong { color: var(--cream); font-weight: 500; }
 
-    .proactive-examples { display: flex; flex-direction: column; gap: 16px; margin-top: 60px; }
+    .proactive-examples { display: flex; flex-direction: column; gap: 16px; margin-top: 50px; }
     .proactive-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; gap: 20px; align-items: flex-start; }
     .proactive-icons { display: flex; gap: 4px; flex-shrink: 0; font-size: 20px; align-items: center; }
     .proactive-plus { color: var(--muted); font-size: 14px; }
     .proactive-content h4 { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
     .proactive-content p { font-size: 0.9rem; color: var(--cream); line-height: 1.6; font-style: italic; }
 
-    .privacy-section { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; padding: 60px; text-align: center; margin-top: 60px; }
+    .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+    .highlight-mini { background: var(--dark-2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+    .highlight-mini .feature-icon { font-size: 22px; margin-bottom: 10px; }
+    .highlight-mini .feature-title { font-size: 0.9rem; margin-bottom: 4px; }
+    .highlight-mini .feature-desc { font-size: 0.78rem; }
+
+    details.everything { margin-top: 28px; background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; }
+    details.everything summary { cursor: pointer; color: var(--gold); font-size: 0.9rem; font-weight: 500; list-style: none; }
+    details.everything summary::-webkit-details-marker { display: none; }
+    details.everything summary::after { content: ' ▾'; }
+    details.everything[open] summary::after { content: ' ▴'; }
+    .everything-list { margin-top: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 32px; }
+    .everything-item { font-size: 0.85rem; color: var(--muted); line-height: 1.6; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .everything-item strong { color: var(--cream); font-weight: 500; }
+
+    .privacy-section { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; padding: 60px; text-align: center; margin-top: 50px; }
     .privacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; text-align: left; }
     .privacy-item h4 { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
     .privacy-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
-    blockquote { border-left: 3px solid var(--gold); padding: 24px 32px; margin: 60px 0; background: var(--dark-2); border-radius: 0 12px 12px 0; }
+    blockquote { border-left: 3px solid var(--gold); padding: 24px 32px; margin: 50px 0; background: var(--dark-2); border-radius: 0 12px 12px 0; }
     blockquote p { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--cream); line-height: 1.6; }
     blockquote p em { color: var(--gold); font-style: normal; }
 
-    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; }
     .price-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
     .price-card.featured { border-color: var(--gold); }
     .price-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -125,7 +141,7 @@
     .price-cta { display: block; text-align: center; background: var(--gold); color: var(--dark); padding: 12px; border-radius: 4px; font-weight: 500; text-decoration: none; font-size: 0.9rem; }
     .price-card:not(.featured) .price-cta { background: var(--dark-3); border: 1px solid var(--border); color: var(--cream); }
 
-    .cta-section { text-align: center; padding: 120px 24px; position: relative; }
+    .cta-section { text-align: center; padding: 100px 24px; position: relative; }
     .cta-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%); pointer-events: none; }
     .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; color: var(--white); margin-bottom: 20px; }
     .cta-section h2 em { color: var(--gold); font-style: italic; }
@@ -140,9 +156,11 @@
     .section-divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
 
     @media (max-width: 900px) {
-      nav { padding: 16px 20px; }
+      nav { padding: 14px 20px; }
       .nav-links { display: none; }
-      .features-grid, .before-after, .modes-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .before-after, .pillars-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+      .everything-list { grid-template-columns: 1fr; }
       .privacy-grid { grid-template-columns: 1fr; }
       footer { padding: 32px 20px; }
       .privacy-section { padding: 40px 24px; }
@@ -152,92 +170,28 @@
 <body>
 
   <nav>
-    <a href="/" class="nav-logo">WINSTON</a>
+    <a href="/" class="nav-brand">
+      <img src="data:image/png;base64,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" alt="Winston">
+      <span class="nav-logo">WINSTON</span>
+    </a>
     <div class="nav-links">
-      <a href="#features">Features</a>
       <a href="#pillars">How It Works</a>
       <a href="#privacy">Privacy</a>
-      <a href="mailto:david@getwinstonai.com" class="nav-cta" onclick="emailDavid(event)">Email David</a>
+      <a href="mailto:davidblakelock01@gmail.com" class="nav-cta" onclick="emailDavid(event)">Join the Beta</a>
     </div>
   </nav>
 
   <div class="hero">
-    <div class="hero-badge"><span></span> Android Beta Now Available</div>
+    <div class="hero-badge"><span></span> Android Beta Now Open</div>
     <h1>Most apps organize information. <em>Winston organizes your life.</em></h1>
     <p class="hero-tagline">The intelligence your smartphone always promised.</p>
-    <p class="hero-sub">Your phone knows an enormous amount about your life — and none of it talks to any of the rest of it. Winston is the layer that finally connects it, remembers it, and knows when to bring it up.</p>
+    <p class="hero-sub">Your phone knows an enormous amount about your life — but almost none of it talks to the rest. Winston remembers what matters, connects the dots, and brings something up only when it can genuinely help.</p>
     <div class="hero-ctas">
-      <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="btn-primary" onclick="emailDavid(event)">Email david@getwinstonai.com</a>
+      <a href="mailto:davidblakelock01@gmail.com?subject=Winston Beta Access Request" class="btn-primary" onclick="emailDavid(event)">Join the Android Beta</a>
+      <a href="#pillars" class="btn-secondary">See How Winston Works</a>
     </div>
-    <p class="hero-meta">Android now &nbsp;·&nbsp; iOS coming soon &nbsp;·&nbsp; 30-day money-back guarantee</p>
+    <p class="hero-meta">Android now &nbsp;·&nbsp; iOS coming soon</p>
   </div>
-
-  <div class="demo-section">
-    <p class="demo-label">A Wednesday morning with Rosie</p>
-    <div class="conversation">
-      <div class="conv-header">
-        <div class="conv-avatar">R</div>
-        <div><div class="conv-name">Rosie</div><div class="conv-status">● Active</div></div>
-      </div>
-      <div class="conv-body">
-        <div class="msg user">
-          <div class="msg-avatar">D</div>
-          <div class="msg-bubble">Good morning, Rosie.</div>
-        </div>
-        <div class="msg assistant">
-          <div class="msg-avatar">R</div>
-          <div class="msg-bubble">
-            <div class="msg-label">Rosie</div>
-            Morning! 74° and clear today. You've got a 9am — leave by 8:40 with current traffic. Want your full run down?
-          </div>
-        </div>
-        <div class="msg user">
-          <div class="msg-avatar">D</div>
-          <div class="msg-bubble">Book Nobu for 2 this Saturday at 7.</div>
-        </div>
-        <div class="msg assistant">
-          <div class="msg-avatar">R</div>
-          <div class="msg-bubble">
-            <div class="msg-label">Rosie</div>
-            Done — Nobu, Saturday at 7:00, table for two. Added to your calendar.
-          </div>
-        </div>
-        <div class="msg user">
-          <div class="msg-avatar">D</div>
-          <div class="msg-bubble">Put this in the Attic — the guy at the hardware store mentioned a good fly fishing spot upstate.</div>
-        </div>
-        <div class="msg assistant">
-          <div class="msg-avatar">R</div>
-          <div class="msg-bubble">
-            <div class="msg-label">Rosie</div>
-            Got it, filed away. That's the third fishing-related thing you've saved this month — want me to keep an eye on that?
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section>
-    <p class="section-eyebrow">Who you're actually talking to</p>
-    <h2 class="section-title">Meet Rosie<br><em>&amp; MACC.</em></h2>
-    <p class="section-body">You don't talk to "Winston" the way you'd talk to a piece of software. You talk to your companion — and you get to pick which one.</p>
-    <div class="before-after" style="margin-top:40px;">
-      <div class="ba-col after" style="border-color: var(--gold);">
-        <div class="ba-title" style="color: var(--gold);">Rosie</div>
-        <p style="color: var(--cream); font-size: 0.95rem; line-height: 1.7;">Warm, witty, a little sassy — the friend who remembers everything and isn't afraid to tease you about it.</p>
-      </div>
-      <div class="ba-col after" style="border-color: var(--gold);">
-        <div class="ba-title" style="color: var(--gold);">MACC</div>
-        <p style="color: var(--cream); font-size: 0.95rem; line-height: 1.7;">Dry, quietly funny, a little overconfident — cut from the same cloth, entirely his own voice.</p>
-      </div>
-    </div>
-    <p class="section-body" style="margin-top:32px;">Say "Hey Rosie" or "Hey MACC" and the conversation just starts — no button to hunt for, nothing to unlock first. And it doesn't stop at one question and one answer. You talk back and forth naturally, the way you would with someone who's actually listening — not barking commands at a machine that forgets you the moment it responds.</p>
-    <p class="section-body">Want a different sound for your companion? Choose from a number of different voices for Rosie or MACC until one genuinely feels like yours.</p>
-    <p class="section-body">And soon, you won't even need to open the app first: <em>"Hey Google, tell Winston to add milk to my list"</em> is coming once Winston is live in production — Rosie or MACC, hearing you before you've even picked up your phone.</p>
-    <p class="section-body">Winston is the platform underneath, doing the actual work — remembering, noticing, connecting the dots. Rosie and MACC are who actually shows up when you say good morning, and who's still there at the end of the day, asking a real question instead of a rote one. Pick whichever one genuinely fits how you want to be talked to. That's the voice you'll hear every single day — like someone who's actually got your back, not an app you open and close.</p>
-  </section>
-
-  <div class="section-divider"></div>
 
   <div class="promise">
     <div class="promise-inner">
@@ -306,166 +260,35 @@
 
   <div class="section-divider"></div>
 
-  <section id="features">
-    <p class="section-eyebrow">What Winston handles</p>
-    <h2 class="section-title">The routine that was<br><em>consuming your day.</em></h2>
-
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">☀️</div>
-        <div class="feature-title">Morning Run Down</div>
-        <div class="feature-desc">Your day, briefed like someone who actually pays attention wrote it — real news, real weather, markets, sports, and a closing thought. Generated fresh, every single morning. Never a rerun.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌙</div>
-        <div class="feature-title">Evening Wrap Up</div>
-        <div class="feature-desc">A real recap of your day, a look ahead to tomorrow, a gentle nudge on anything that's been sitting open too long, and a genuine invitation to reflect — sometimes a question, sometimes just an open door, never the same way twice.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">Signature</div>
-        <div class="feature-icon">🗄️</div>
-        <div class="feature-title">The Attic</div>
-        <div class="feature-desc">Say "put this in the Attic" and it's saved — no folders, no tags, no decision to make. Winston actually notices the patterns in what piles up there over time, and when something keeps resurfacing, it'll offer to turn it into a real Goal.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <div class="feature-title">My Goals</div>
-        <div class="feature-desc">Tell Winston what you actually want to pursue — learning bridge, getting into wine, finally understanding jazz — and get a real, richly detailed answer grounded in live search, not something recalled and stale. Come back and keep building on it for as long as it stays interesting.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📓</div>
-        <div class="feature-title">My Life</div>
-        <div class="feature-desc">Your own space to actually think something through, out loud, in your own words — the deliberate counterpart to the Attic's effortless capture.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🍽️</div>
-        <div class="feature-title">Reservation Booking</div>
-        <div class="feature-desc">"Book Nobu for 2, Saturday at 7." Winston books it directly, confirms it, and puts it on your calendar — no app-hopping, no hold music.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">✉️</div>
-        <div class="feature-title">Email Triage</div>
-        <div class="feature-desc">A real back-and-forth, right in conversation — see what's unread, have Winston draft a reply in your voice, archive it, or move to the next one. Your inbox, handled like a conversation instead of a chore.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">New</div>
-        <div class="feature-icon">🔕</div>
-        <div class="feature-title">Email, On Your Terms</div>
-        <div class="feature-desc">Set your own rhythm — every 30 minutes, every couple hours, whatever you want — and Winston tells you how many emails came in and whether anything's actually urgent. No more constant pings hijacking your attention for things that can wait. When something genuinely needs you, you'll know. Everything else waits until you're ready for it.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">✈️</div>
-        <div class="feature-title">My Records</div>
-        <div class="feature-desc">Book a trip and Winston quietly gathers every confirmation that lands in your inbox — flight, hotel, rental car — into one place, automatically. When it's time to travel, everything you need is already sitting together, not scattered across a dozen old email threads. Vehicle registration renewal dates get the same automatic treatment, so that deadline never sneaks up on you.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📦</div>
-        <div class="feature-title">My Orders</div>
-        <div class="feature-desc">Every order confirmation that hits your inbox gets tracked automatically, in near real time. "Where's my package?" gets answered instantly — no opening five different carrier apps hoping one of them has an update.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛒</div>
-        <div class="feature-title">Smart Lists</div>
-        <div class="feature-desc">Shopping, to-do, wish lists — or invent a brand new list right on the spot, just by naming it. Your shopping list sorts itself by aisle automatically, so you're not zigzagging the store. Mark something done, or drop it entirely, just by mentioning it — no app to open, nothing to check off by hand.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">New</div>
-        <div class="feature-icon">📖</div>
-        <div class="feature-title">Recipes, Saved in Full</div>
-        <div class="feature-desc">Found a recipe worth keeping? Forward the email to Winston. That's it — every ingredient, every step, saved in full and waiting in your Recipes list. No retyping, no bookmarking a page you'll never find again.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">New</div>
-        <div class="feature-icon">📺</div>
-        <div class="feature-title">Your Shows, Actually Tracked</div>
-        <div class="feature-desc">Save your favorite TV shows and Winston keeps watch for new episodes and new seasons automatically. Not sure what to watch next? Ask — Winston recommends based on what you already love, because it's been paying attention the whole time.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👥</div>
-        <div class="feature-title">My People</div>
-        <div class="feature-desc">Everyone who matters to you, in one place. Connect with other Winston users to share specific lists, send messages, or set reminders for someone directly — you choose exactly what's shared, and with whom.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧑‍⚕️</div>
-        <div class="feature-title">Service Providers</div>
-        <div class="feature-desc">Your doctor, your lawyer, your vet, your plumber — everyone you call on for a specific reason, organized by category instead of buried in your phone's contacts alongside everyone else you know. No more scrolling past forty names trying to remember which one was the electrician.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💊</div>
-        <div class="feature-title">Medications</div>
-        <div class="feature-desc">Track what you're taking and when, and Winston checks for real interactions between everything on your list — flagged by severity, in plain language, not a wall of pharmacology. When it's time for a doctor's visit, share your whole medication list in one tap. No more trying to reconstruct dosages from memory in the waiting room.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧾</div>
-        <div class="feature-title">Bills</div>
-        <div class="feature-desc">For the bills that don't run on autopay — the ones you still have to actually pay yourself — Winston tracks what's due and reminds you before it's late. Never scramble to catch up on something you genuinely just forgot about.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧭</div>
-        <div class="feature-title">Departure Alerts</div>
-        <div class="feature-desc">Winston watches your calendar and tells you exactly when to leave, based on real drive time — not a generic buffer. Never sprint out the door surprised again.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">Signature</div>
-        <div class="feature-icon">🎉</div>
-        <div class="feature-title">Things to Do</div>
-        <div class="feature-desc">Every Monday and Thursday, Winston hands you a genuinely curated list of things worth doing nearby — new restaurants, events, activities you'd never have stumbled onto on your own. Not a generic events feed. Real picks, matched to what you actually like.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">New</div>
-        <div class="feature-icon">🚨</div>
-        <div class="feature-title">Breaking News</div>
-        <div class="feature-desc">When something genuinely big happens, Winston tells you — a real alert the moment it breaks, not buried in tomorrow's briefing. You hear about it when it matters.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-new">New</div>
-        <div class="feature-icon">🎭</div>
-        <div class="feature-title">Say It However You Want</div>
-        <div class="feature-desc">Give Winston a few bullet points and ask for a full email — witty, formal, warm, whatever the moment calls for. Want it punchier, friendlier, more businesslike? Just say so and it rewrites on the spot. Same with texts: ask for something genuinely romantic for your partner, or take what you've already written and make it funnier. Winston writes in whatever voice the moment actually needs — never one flat tone for everything.</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <section>
-    <p class="section-eyebrow">The engine underneath</p>
-    <h2 class="section-title">Built on Claude.<br><em>Made to remember you.</em></h2>
-    <p class="section-body">Winston runs on Claude, from Anthropic — genuinely one of the most capable AI models in the world. Ask it anything you'd ask any frontier AI: explain something complicated, help you write, think through a hard decision. You're not getting a stripped-down chatbot wrapper. You're getting the real thing, with the full weight of Claude behind every conversation.</p>
-    <p class="section-body">Here's what you don't get anywhere else: every other AI conversation starts from zero, every single time. Winston doesn't. It remembers what you told it last week, what you're working toward, who matters to you, what you've saved and asked about. The intelligence is Claude's. The relationship — built up conversation by conversation — is yours alone.</p>
-  </section>
-
-  <div class="section-divider"></div>
-
   <section id="pillars">
     <p class="section-eyebrow">How it works</p>
     <h2 class="section-title">Four things make up<br><em>the real Winston experience.</em></h2>
     <p class="section-body">Everything else — calendar, email, records, lists — exists to feed these four. They're the actual relationship, not just features.</p>
 
-    <div class="modes-grid">
-      <div class="mode-card featured">
-        <div class="mode-icon">☀️</div>
-        <div class="mode-name">Morning Run Down</div>
-        <div class="mode-tag">The daily habit</div>
-        <div class="mode-desc">A real briefing, generated fresh every single time you ask.</div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">☀️</div>
+        <div class="pillar-name">Morning Run Down</div>
+        <div class="pillar-tag">The daily habit</div>
+        <div class="pillar-desc">A real briefing, generated fresh every single time you ask.</div>
       </div>
-      <div class="mode-card featured">
-        <div class="mode-icon">🗄️</div>
-        <div class="mode-name">The Attic</div>
-        <div class="mode-tag">Long-term memory</div>
-        <div class="mode-desc">Save anything, no effort required — and Winston actually notices what it means over time.</div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🗄️</div>
+        <div class="pillar-name">The Attic</div>
+        <div class="pillar-tag">Long-term memory</div>
+        <div class="pillar-desc">Save anything, no effort required — and Winston actually notices what it means over time.</div>
       </div>
-      <div class="mode-card featured">
-        <div class="mode-icon">💡</div>
-        <div class="mode-name">Winston Notices</div>
-        <div class="mode-tag">Unexpected value</div>
-        <div class="mode-desc">Quietly watching for something genuinely worth mentioning — never more than one thing at a time.</div>
+      <div class="pillar-card">
+        <div class="pillar-icon">💡</div>
+        <div class="pillar-name">Winston Notices</div>
+        <div class="pillar-tag">Unexpected value</div>
+        <div class="pillar-desc">Quietly watching for something genuinely worth mentioning — never more than one thing at a time.</div>
       </div>
-      <div class="mode-card featured">
-        <div class="mode-icon">💬</div>
-        <div class="mode-name">Conversation</div>
-        <div class="mode-tag">The relationship itself</div>
-        <div class="mode-desc">Rosie or MACC — whichever you choose — remembering what you told them, the way a friend would.</div>
+      <div class="pillar-card">
+        <div class="pillar-icon">💬</div>
+        <div class="pillar-name">Conversation</div>
+        <div class="pillar-tag">The relationship itself</div>
+        <div class="pillar-desc">Choose who you want to talk to. <strong>Rosie</strong> is warm, witty and a little sassy. <strong>MACC</strong> is dry, quietly funny and occasionally overconfident. Choose the personality and voice that feels right, then just say "Hey Rosie" or "Hey MACC." Winston does the work underneath — Rosie or MACC is the companion you get to know.</div>
       </div>
     </div>
   </section>
@@ -479,24 +302,24 @@
 
     <div class="proactive-examples">
       <div class="proactive-card">
+        <div class="proactive-icons">🗄️ <span class="proactive-plus">+</span> 🎉</div>
+        <div class="proactive-content">
+          <h4>The Attic + Things to Do</h4>
+          <p>"You've saved a few things about classic cars lately, and there's a vintage European car show ten minutes from you this Saturday. Thought you'd want to know."</p>
+        </div>
+      </div>
+      <div class="proactive-card">
+        <div class="proactive-icons">🗄️ <span class="proactive-plus">+</span> ✈️</div>
+        <div class="proactive-content">
+          <h4>The Attic + My Records</h4>
+          <p>"You've saved three restaurants in Barcelona, and your flight confirmation says you'll be there in March. Want me to start a Barcelona list?"</p>
+        </div>
+      </div>
+      <div class="proactive-card">
         <div class="proactive-icons">🗄️ <span class="proactive-plus">+</span> 🎯</div>
         <div class="proactive-content">
           <h4>The Attic + Goals</h4>
-          <p>"You've saved four things about learning bridge over the past few weeks — want me to help you actually start?"</p>
-        </div>
-      </div>
-      <div class="proactive-card">
-        <div class="proactive-icons">📅 <span class="proactive-plus">+</span> 🚗</div>
-        <div class="proactive-content">
-          <h4>Calendar + Real Drive Time</h4>
-          <p>"Traffic's heavier than usual toward downtown — leave by 6:30 instead of 6:45 to make your 7:00 reservation comfortably."</p>
-        </div>
-      </div>
-      <div class="proactive-card">
-        <div class="proactive-icons">🌙 <span class="proactive-plus">+</span> 📓</div>
-        <div class="proactive-content">
-          <h4>Evening Wrap Up + My Life</h4>
-          <p>"That decision you were weighing this morning — worth a couple minutes tonight to think it through?"</p>
+          <p>"You've mentioned wanting to learn bridge a few times, and saved an article about beginner lessons last week. There's a beginner course starting near you next month."</p>
         </div>
       </div>
     </div>
@@ -513,13 +336,79 @@
   <div class="section-divider"></div>
 
   <section>
-    <p class="section-eyebrow">An idea that's suddenly everywhere again</p>
-    <h2 class="section-title">The Stoics wrote an<br><em>operating system for life.</em></h2>
-    <p class="section-body">They weren't writing self-help. Marcus Aurelius wasn't writing for an audience at all — just private notes to himself on what to spend his attention on, what to let go of, how to act with intention instead of reacting to whatever hit him next. He called it nothing. We call it <em>Meditations</em> now, and nearly 1,900 years later, new editions of it still land on bestseller lists. That's not an accident. It's an operating system, and it still runs.</p>
-    <p class="section-body">That operating system is exactly what's quietly running underneath Morning Run Down, Evening Wrap Up, and Goals — never announced, never turned into a lecture, never a feature you switch on. A closing thought worth sitting with. A question that actually invites reflection instead of a rote "how was your day."</p>
-    <p class="section-body">This isn't a decorative flourish, and it isn't nostalgia. Stoicism is having a real moment right now — showing up in the hands of people drowning in more information and comparison than any generation before them has ever had to process, in the reading lists of people rebuilding after burnout, on the desks of people who realized that getting more efficient never once made them feel more in control. Their books are close to required reading now, not because they're old, but because nothing written since has said it better. What they wrote two thousand years ago has never been more relevant than it is today.</p>
-    <p class="section-body">That's the exact same problem Winston exists to solve. Most apps help you organize information. Winston helps you organize your life — the same argument the Stoics were making millennia before "productivity" was even a word. In a world handing you more noise and more urgency every single day than the one before it, an operating system built on what actually matters isn't old-fashioned. It's the only thing that still works.</p>
-    <p class="section-body">You'll never see any of this labeled inside the app. You'll just notice, over time, that Winston seems to care whether you're living well — not just whether you're getting things done.</p>
+    <p class="section-eyebrow">Beyond the four pillars</p>
+    <h2 class="section-title">And Winston handles<br><em>the everyday stuff too.</em></h2>
+    <p class="section-body">Goals worth pursuing, a place to reflect, everyone who matters to you, and the practical things that quietly eat up a day.</p>
+
+    <div class="highlights-grid">
+      <div class="highlight-mini">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">My Goals</div>
+        <div class="feature-desc">Real ambitions, richly answered, grounded in live search.</div>
+      </div>
+      <div class="highlight-mini">
+        <div class="feature-icon">📖</div>
+        <div class="feature-title">Recipes, Saved in Full</div>
+        <div class="feature-desc">Forward the email. Every ingredient, every step, done.</div>
+      </div>
+      <div class="highlight-mini">
+        <div class="feature-icon">🎉</div>
+        <div class="feature-title">Things to Do</div>
+        <div class="feature-desc">A real curated pick nearby, twice a week.</div>
+      </div>
+      <div class="highlight-mini">
+        <div class="feature-icon">🚨</div>
+        <div class="feature-title">Breaking News</div>
+        <div class="feature-desc">The moment it happens, not the next morning.</div>
+      </div>
+    </div>
+
+    <details class="everything">
+      <summary>See everything Winston can do</summary>
+      <div class="everything-list">
+        <div class="everything-item"><strong>My Life</strong> — a space for deliberate reflection, separate from the Attic's passive capture.</div>
+        <div class="everything-item"><strong>Reservation Booking</strong> — say where and when, Winston books it and confirms.</div>
+        <div class="everything-item"><strong>Email Triage</strong> — a real back-and-forth right in conversation.</div>
+        <div class="everything-item"><strong>Email, On Your Terms</strong> — a digest at your own chosen interval, no constant pings.</div>
+        <div class="everything-item"><strong>My Records</strong> — every confirmation for a trip, gathered automatically in one place.</div>
+        <div class="everything-item"><strong>My Orders</strong> — package tracking in near real time, no carrier apps.</div>
+        <div class="everything-item"><strong>Smart Lists</strong> — shopping, to-do, or anything you name, sorted and managed by voice.</div>
+        <div class="everything-item"><strong>Your Shows, Tracked</strong> — new episodes and recommendations, automatically.</div>
+        <div class="everything-item"><strong>Service Providers</strong> — your doctor, vet, plumber, organized by category.</div>
+        <div class="everything-item"><strong>Medications</strong> — interaction checks, plus one-tap sharing with your doctor.</div>
+        <div class="everything-item"><strong>Bills</strong> — the ones you still pay manually, tracked so you're never late.</div>
+        <div class="everything-item"><strong>Departure Alerts</strong> — exactly when to leave, based on real drive time.</div>
+        <div class="everything-item"><strong>Say It However You Want</strong> — witty, formal, romantic — email and texts, written in the tone you actually need.</div>
+      </div>
+    </details>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <p class="section-eyebrow">My People</p>
+    <h2 class="section-title">Life is easier when the people in it are<br><em>connected.</em></h2>
+    <p class="section-body">My People helps Winston remember family, friends, doctors, service providers, and anyone else who matters. When someone also uses Winston, you can connect and share only the things you choose — while everything else in your Winston stays private.</p>
+
+    <div class="before-after" style="margin-top:40px;">
+      <div class="ba-col after">
+        <div class="ba-title">What Winston knows</div>
+        <div class="ba-item"><span class="ba-icon">👤</span><div><strong>My Partner</strong><div class="ba-sub">Partner · Connected ✓</div></div></div>
+        <div class="ba-item"><span class="ba-icon">👤</span><div><strong>My Friend</strong><div class="ba-sub">Friend · Connected ✓</div></div></div>
+        <div class="ba-item"><span class="ba-icon">👤</span><div><strong>My Daughter</strong><div class="ba-sub">Daughter · Invite to Winston</div></div></div>
+      </div>
+
+      <div class="ba-col after">
+        <div class="ba-title">What you can say</div>
+        <div class="ba-item"><span class="ba-icon">✓</span><div>"Rosie, share the grocery list with my partner."</div></div>
+        <div class="ba-item"><span class="ba-icon">✓</span><div>"MACC, remind my friend we're meeting at 10 tomorrow."</div></div>
+        <div class="ba-item"><span class="ba-icon">✓</span><div>"Rosie, find a night next week that we're both free."</div></div>
+      </div>
+    </div>
+
+    <blockquote style="margin-bottom:0;">
+      <p><em>My People knows who matters to you.</em> Connecting lets Winston help with the things you share. Everything else stays yours.</p>
+    </blockquote>
   </section>
 
   <div class="section-divider"></div>
@@ -528,7 +417,7 @@
     <p class="section-eyebrow">A different relationship</p>
     <h2 class="section-title">No ads. No data selling.<br><em>Ever.</em></h2>
     <div class="privacy-section">
-      <p style="font-size:1.05rem;color:var(--cream);opacity:0.8;max-width:620px;margin:0 auto;">Amazon, Google, and Apple cannot build a genuine personal AI companion without undermining their ad-dependent business models. That's not cynicism — it's their business model in writing. Winston's only revenue is your subscription. That structural difference changes everything about how we think about your data.</p>
+      <p style="font-size:1.05rem;color:var(--cream);opacity:0.8;max-width:620px;margin:0 auto;">Winston has one customer: you. Our business model is a subscription, not advertising — which means there's no incentive to monetize your attention or sell what Winston learns about you.</p>
       <div class="privacy-grid">
         <div class="privacy-item">
           <h4>Zero ads</h4>
@@ -549,30 +438,47 @@
   <div class="section-divider"></div>
 
   <section>
-    <p class="section-eyebrow">Simple pricing</p>
-    <h2 class="section-title">One price.<br><em>Everything included.</em></h2>
+    <p class="section-eyebrow">An idea worth borrowing</p>
+    <h2 class="section-title">An old idea<br><em>for a very modern problem.</em></h2>
+    <p class="section-body">The Stoics wrote what amounts to an operating system for how to live — focus on what you control, act with intention, let the rest go. It's having a real resurgence right now, especially among people who never expected to care about two-thousand-year-old philosophy. Winston is quietly built on that same idea — not as a lesson, just a reminder that attention is finite and not everything deserves it. You'll notice it in the Morning Run Down, the Evening Wrap Up, and the occasional question worth actually sitting with. Winston isn't just interested in whether you got everything done. It's interested in whether the things you did actually mattered.</p>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <p class="section-eyebrow">The engine underneath</p>
+    <h2 class="section-title">Powered by frontier AI.<br><em>Built around you.</em></h2>
+    <p class="section-body">Winston uses leading AI models underneath, but intelligence alone isn't what makes Winston different. What matters is context — what you've told Winston, what you've saved, who matters to you, and what you're actually trying to accomplish. The AI provides the intelligence. Winston provides the continuity.</p>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <p class="section-eyebrow">What it'll cost, once we're live</p>
+    <h2 class="section-title">Simple pricing.<br><em>Coming out of beta.</em></h2>
+    <p class="section-body">We're not asking anyone to pay during the beta — just to genuinely use Winston and tell us honestly whether it's worth this. Here's what it'll actually cost once Winston is out of beta and live on the Play Store:</p>
     <div class="pricing-grid">
       <div class="price-card featured">
         <div class="price-label">Individual</div>
         <div class="price-amount">$9<span>.90/mo</span></div>
         <div class="price-period">Or $89/year</div>
-        <div class="price-desc">Every feature. Unlimited use. No per-use charges hidden in the pricing. Try it for 30 days — if it's not for you, full refund, no questions asked.</div>
-        <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="price-cta" onclick="emailDavid(event)">Email david@getwinstonai.com</a>
+        <div class="price-desc">Every feature. No per-use charges hidden in the pricing.</div>
+        <a href="mailto:davidblakelock01@gmail.com?subject=Winston Beta Access Request" class="price-cta" onclick="emailDavid(event)">Join the Beta</a>
       </div>
       <div class="price-card">
         <div class="price-label">Family Plan</div>
         <div class="price-amount">$19<span>/mo</span></div>
         <div class="price-period">Or $160/year — up to 4 members</div>
-        <div class="price-desc">Each family member gets their own private Winston. Shared lists, cross-user reminders, and group coordination all included. Everyone's data stays private.</div>
-        <a href="mailto:david@getwinstonai.com?subject=Winston Family Plan Beta" class="price-cta" onclick="emailDavid(event)">Email david@getwinstonai.com</a>
+        <div class="price-desc">Each family member gets their own private Winston. Shared lists, cross-user reminders, and group coordination all included.</div>
+        <a href="mailto:davidblakelock01@gmail.com?subject=Winston Family Plan Beta" class="price-cta" onclick="emailDavid(event)">Join the Beta</a>
       </div>
     </div>
   </section>
 
   <div class="cta-section">
-    <h2>Ready to put your <em>phone down?</em></h2>
-    <p>We're looking for people willing to use Winston every day and tell us honestly what works and what doesn't. 30-day money-back guarantee, no questions asked.</p>
-    <a href="mailto:david@getwinstonai.com?subject=Winston Beta Access Request" class="btn-primary" onclick="emailDavid(event)">Email david@getwinstonai.com</a>
+    <h2>Help Test <em>Winston.</em></h2>
+    <p>We're looking for a small group of Android users willing to use Winston for 14 days and tell us what works, what doesn't, what's confusing — and whether you'd actually keep using it.</p>
+    <a href="mailto:davidblakelock01@gmail.com?subject=Winston Beta Access Request" class="btn-primary" onclick="emailDavid(event)">Join the Android Beta</a>
     <p style="margin-top:20px;font-size:0.8rem;color:var(--muted);">Android required &nbsp;·&nbsp; iOS coming soon</p>
   </div>
 
@@ -581,15 +487,16 @@
     <div class="footer-links">
       <a href="/privacy.html">Privacy Policy</a>
       <a href="/terms.html">Terms of Service</a>
-      <a href="mailto:david@getwinstonai.com" onclick="emailDavid(event)">Contact</a>
+      <a href="mailto:davidblakelock01@gmail.com" onclick="emailDavid(event)">Contact</a>
     </div>
     <p class="footer-copy">© 2026 Winston AI. Named after a very good corgi. Powered by Claude.</p>
   </footer>
-  <div id="email-toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:var(--dark);padding:14px 24px;border-radius:8px;font-size:0.9rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,0.4);">Copied david@getwinstonai.com to your clipboard!</div>
+
+  <div id="email-toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:var(--dark);padding:14px 24px;border-radius:8px;font-size:0.9rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,0.4);">Copied davidblakelock01@gmail.com to your clipboard!</div>
 
   <script>
     function emailDavid(event) {
-      var address = 'david@getwinstonai.com';
+      var address = 'davidblakelock01@gmail.com';
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(address).catch(function(){});
       }
@@ -600,9 +507,6 @@
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(-50%) translateY(20px)';
       }, 3500);
-      // Let the mailto: href in the anchor's href attribute still attempt
-      // to open a mail client in parallel — this handler never blocks that,
-      // it only guarantees a visible result even when no mail app exists.
     }
   </script>
 
